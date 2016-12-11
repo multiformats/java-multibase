@@ -2,7 +2,9 @@
 A Java implementation of Multibase
 
 ## Usage
-Multihash m = Multihash.fromBase58("QmatmE9msSfkKxoffpHwNLNKgwZG8eT9Bud6YoPab52vpy");
+byte[] data = ...
+String encoded = Multibase.encode(Multibase.Base.Base58BTC, data);
+byte[] decoded = Multibase.decode(encoded);
 
 ## Compilation
 To compile just run ant.
