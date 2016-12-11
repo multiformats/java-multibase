@@ -4,7 +4,7 @@ import org.junit.*;
 
 import java.util.*;
 
-public class MultibaseTests {
+public class MultibaseTest {
 
     @Test
     public void base58Test() {
