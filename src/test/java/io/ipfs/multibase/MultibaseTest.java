@@ -36,6 +36,16 @@ public class MultibaseTest {
     }
 
     @Test
+    public void base32Test() {
+        List<String> examples = Arrays.asList("bnbswy3dpeb3w64tmmq");
+        for (String example: examples) {
+            byte[] output = Multibase.decode(example);
+            String encoded = Multibase.encode(Multibase.Base.Base32, output);
+            assertEquals(example, encoded);
+        }
+    }
+
+    @Test
     public void invalidBase16Test() {
         String example = "f012"; // hex string of odd length
         byte[] output = Multibase.decode(example);

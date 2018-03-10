@@ -12,6 +12,7 @@ public class Multibase {
         Base8('7'), // highest char in octal
         Base10('9'), // highest char in decimal
         Base16('f'), // highest char in hex
+        Base32('b'), // highest char in hex
         Base58Flickr('Z'), // highest char
         Base58BTC('z'); // highest char
 
@@ -40,6 +41,8 @@ public class Multibase {
                 return b.prefix + Base58.encode(data);
             case Base16:
                 return b.prefix + Base16.encode(data);
+            case Base32:
+                return b.prefix + Base32.encode(data);
             default:
                 throw new IllegalStateException("Unsupported base encoding: " + b.name());
         }
@@ -57,6 +60,8 @@ public class Multibase {
                 return Base58.decode(rest);
             case Base16:
                 return Base16.decode(rest);
+            case Base32:
+                return Base32.decode(rest);
             default:
                 throw new IllegalStateException("Unsupported base encoding: " + b.name());
         }
