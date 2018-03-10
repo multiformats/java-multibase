@@ -1,19 +1,21 @@
 package io.ipfs.multibase;
 
-import java.util.*;
+import java.util.Map;
+import java.util.TreeMap;
 
 public class Multibase {
 
     public enum Base {
-        Base1('1'),
-        Base2('0'),
-        Base8('7'),
-        Base10('9'),
-        Base16('f'),
-        Base58Flickr('Z'),
-        Base58BTC('z');
+        // encoding(code)
+        Base1('1'), // unary tends to be 11111
+        Base2('0'), // binary has 1 and 0
+        Base8('7'), // highest char in octal
+        Base10('9'), // highest char in decimal
+        Base16('f'), // highest char in hex
+        Base58Flickr('Z'), // highest char
+        Base58BTC('z'); // highest char
 
-        public char prefix;
+        private final char prefix;
 
         Base(char prefix) {
             this.prefix = prefix;
