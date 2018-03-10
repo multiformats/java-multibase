@@ -5,6 +5,9 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.List;
 
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
+
 public class MultibaseTest {
 
     @Test
@@ -14,8 +17,7 @@ public class MultibaseTest {
         for (String example: examples) {
             byte[] output = Multibase.decode(example);
             String encoded = Multibase.encode(Multibase.Base.Base58BTC, output);
-            if (!examples.contains(encoded))
-                throw new IllegalStateException("Incorrect base58! " + example + " => " + encoded);
+            assertEquals(example, encoded);
         }
     }
 
@@ -29,8 +31,7 @@ public class MultibaseTest {
         for (String example: examples) {
             byte[] output = Multibase.decode(example);
             String encoded = Multibase.encode(Multibase.Base.Base16, output);
-            if (!examples.contains(encoded))
-                throw new IllegalStateException("Incorrect base16! " + example + " => " + encoded);
+            assertEquals(example, encoded);
         }
     }
 
@@ -39,8 +40,7 @@ public class MultibaseTest {
         String example = "f012"; // hex string of odd length
         byte[] output = Multibase.decode(example);
         String encoded = Multibase.encode(Multibase.Base.Base16, output);
-        if (example.equals(encoded))
-            throw new IllegalStateException("The following " + example + " should not be a valid base16 input.");
+        assertNotEquals(example, encoded);
 
     }
 
