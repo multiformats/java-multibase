@@ -1,8 +1,12 @@
 package io.ipfs.multibase;
 
-import org.junit.*;
+import org.junit.Test;
 
-import java.util.*;
+import java.util.Arrays;
+import java.util.List;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotEquals;
 
 public class MultibaseTest {
 
@@ -13,20 +17,47 @@ public class MultibaseTest {
         for (String example: examples) {
             byte[] output = Multibase.decode(example);
             String encoded = Multibase.encode(Multibase.Base.Base58BTC, output);
-            if (!encoded.equals(encoded))
-                throw new IllegalStateException("Incorrect base58! " + example + " => " + encoded);
+            assertEquals(example, encoded);
         }
     }
 
     @Test
     public void base16Test() {
         List<String> examples = Arrays.asList("f234abed8debede",
-                "f87ad873defc2b288a");
+                "f87ad873defc2b288",
+                "f",
+                "f01",
+                "f0123456789abcdef");
         for (String example: examples) {
             byte[] output = Multibase.decode(example);
             String encoded = Multibase.encode(Multibase.Base.Base16, output);
-            if (!encoded.equals(encoded))
-                throw new IllegalStateException("Incorrect base16! " + example + " => " + encoded);
+            assertEquals(example, encoded);
         }
     }
+
+    @Test
+    public void base32Test() {
+        List<String> examples = Arrays.asList("bnbswy3dpeb3w64tmmq");
+        for (String example: examples) {
+            byte[] output = Multibase.decode(example);
+            String encoded = Multibase.encode(Multibase.Base.Base32, output);
+            assertEquals(example, encoded);
+        }
+    }
+
+    @Test
+    public void invalidBase16Test() {
+        String example = "f012"; // hex string of odd length
+        byte[] output = Multibase.decode(example);
+        String encoded = Multibase.encode(Multibase.Base.Base16, output);
+        assertNotEquals(example, encoded);
+
+    }
+
+    @Test (expected = NumberFormatException.class)
+    public void invalidWithExceptionBase16Test() {
+        String example = "f0g"; // g char is not allowed in hex
+        Multibase.decode(example);
+    }
+
 }
