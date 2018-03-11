@@ -12,7 +12,7 @@ public class Multibase {
         Base8('7'), // highest char in octal
         Base10('9'), // highest char in decimal
         Base16('f'), // highest char in hex
-        Base32('b'), // highest char in hex
+        Base32('b'), // rfc4648 no padding
         Base58Flickr('Z'), // highest char
         Base58BTC('z'); // highest char
 

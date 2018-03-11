@@ -2,9 +2,6 @@ package io.ipfs.multibase;
 
 import java.math.BigInteger;
 
-/**
- * @author Simone I. Conte "sic2@st-andrews.ac.uk"
- */
 public class BaseN {
 
      static String encode(final String alphabet, final BigInteger base, final byte[] input) {
