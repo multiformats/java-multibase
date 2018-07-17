@@ -32,9 +32,9 @@ for Maven, you can add the follwing sections to your POM.XML:
 
   <dependencies>
     <dependency>
-      <groupId>com.github.multiformats</groupId>
-      <artifactId>java-multibase</artifactId>
-      <version>v1.0.0</version>
+      <groupId>io.ipfs</groupId>
+      <artifactId>multibase</artifactId>
+      <version>v1.0.1</version>
     </dependency>
   </dependencies>
 ```
