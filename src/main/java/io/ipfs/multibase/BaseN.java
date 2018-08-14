@@ -7,13 +7,15 @@ public class BaseN {
      static String encode(final String alphabet, final BigInteger base, final byte[] input) {
         // TODO: This could be a lot more efficient.
         BigInteger bi = new BigInteger(1, input);
+        boolean isZero = bi.equals(BigInteger.ZERO);
         StringBuffer s = new StringBuffer();
         while (bi.compareTo(base) >= 0) {
             BigInteger mod = bi.mod(base);
             s.insert(0, alphabet.charAt(mod.intValue()));
             bi = bi.subtract(mod).divide(base);
         }
-        s.insert(0, alphabet.charAt(bi.intValue()));
+         if (! isZero)
+             s.insert(0, alphabet.charAt(bi.intValue()));
         // Convert leading zeros too.
         for (byte anInput : input) {
             if (anInput == 0)
@@ -33,9 +35,11 @@ public class BaseN {
         boolean stripSignByte = bytes.length > 1 && bytes[0] == 0 && bytes[1] < 0;
         // Count the leading zeros, if any.
         int leadingZeros = 0;
-        for (int i = 0; input.charAt(i) == alphabet.charAt(0); i++) {
+        for (int i = 0; i < input.length() && input.charAt(i) == alphabet.charAt(0); i++) {
             leadingZeros++;
         }
+        if (leadingZeros == input.length())
+            return new byte[leadingZeros];
         // Now cut/pad correctly. Java 6 has a convenience for this, but Android can't use it.
         byte[] tmp = new byte[bytes.length - (stripSignByte ? 1 : 0) + leadingZeros];
         System.arraycopy(bytes, stripSignByte ? 1 : 0, tmp, leadingZeros, tmp.length - leadingZeros);

@@ -12,12 +12,24 @@ public class MultibaseTest {
 
     @Test
     public void base58Test() {
-        List<String> examples = Arrays.asList("zQmPZ9gcCEpqKTo6aq61g2nXGUhM4iCL3ewB6LDXZCtioEB",
-                "zQmatmE9msSfkKxoffpHwNLNKgwZG8eT9Bud6YoPab52vpy");
+        List<String> examples = Arrays.asList(
+                "zQmPZ9gcCEpqKTo6aq61g2nXGUhM4iCL3ewB6LDXZCtioEB",
+                "zQmatmE9msSfkKxoffpHwNLNKgwZG8eT9Bud6YoPab52vpy",
+                "z11");
         for (String example: examples) {
             byte[] output = Multibase.decode(example);
             String encoded = Multibase.encode(Multibase.Base.Base58BTC, output);
             assertEquals(example, encoded);
+        }
+    }
+
+    @Test
+    public void zeroBytesBase58() {
+        for (int i=0; i < 32; i++) {
+            String encoded = Multibase.encode(Multibase.Base.Base58BTC, new byte[i]);
+            byte[] output = Multibase.decode(encoded);
+            if (! Arrays.equals(output, new byte[i]))
+                throw new IllegalStateException("Failed to round trip zero array of length " + i);
         }
     }
 
