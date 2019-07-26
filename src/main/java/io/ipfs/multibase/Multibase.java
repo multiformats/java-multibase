@@ -7,7 +7,6 @@ public class Multibase {
 
     public enum Base {
         // encoding(code)
-        Base1('1'), // unary tends to be 11111
         Base2('0'), // binary has 1 and 0
         Base8('7'), // highest char in octal
         Base10('9'), // highest char in decimal
