@@ -22,14 +22,15 @@ public class Multibase {
         }
 
         private static Map<Character, Base> lookup = new TreeMap<>();
+
         static {
-            for (Base b: Base.values())
+            for (Base b : Base.values())
                 lookup.put(b.prefix, b);
         }
 
         public static Base lookup(char p) {
             if (!lookup.containsKey(p))
-                throw new IllegalStateException("Unknown Multibase type: " + p);
+                throw new UnknownCodeException(p);
             return lookup.get(p);
         }
     }
@@ -43,7 +44,7 @@ public class Multibase {
             case Base32:
                 return b.prefix + Base32.encode(data);
             default:
-                throw new IllegalStateException("Unsupported base encoding: " + b.name());
+                throw new UnsupportedEncodingException(b);
         }
     }
 
@@ -62,7 +63,8 @@ public class Multibase {
             case Base32:
                 return Base32.decode(rest);
             default:
-                throw new IllegalStateException("Unsupported base encoding: " + b.name());
+                throw new UnsupportedEncodingException(b);
         }
     }
+
 }
