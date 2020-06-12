@@ -1,23 +1,35 @@
 package io.ipfs.multibase;
 
 import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.junit.runners.Parameterized;
 
-import static org.junit.Assert.assertNotEquals;
-
+@RunWith(Parameterized.class)
 public class MultibaseBadInputsTest {
 
-    @Test
-    public void invalidBase16Test() {
-        String example = "f012"; // hex string of odd length
-        byte[] output = Multibase.decode(example);
-        String encoded = Multibase.encode(Multibase.Base.Base16, output);
-        assertNotEquals(example, encoded);
+    private String encoded;
+
+    public MultibaseBadInputsTest(String encoded) {
+        this.encoded = encoded;
     }
 
-    @Test (expected = NumberFormatException.class)
-    public void invalidWithExceptionBase16Test() {
-        String example = "f0g"; // g char is not allowed in hex
-        Multibase.decode(example);
+    @Parameterized.Parameters(name = "{index}: {0}")
+    public static Object[] data() {
+        return new Object[]{
+                // Incorrect length
+                "f12345",
+                "bagqzlmnrxsa53pojwgi",
+                "mybG",
+                // Illegal characters
+                "f0g",
+                "bagqzlmnrxsa50pojwgia",
+                "m0-GVsbG8gd29ybGQ"
+        };
+    }
+
+    @Test(expected = IllegalArgumentException.class)
+    public void testDecode() {
+        Multibase.decode(encoded);
     }
 
 }

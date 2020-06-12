@@ -3,6 +3,8 @@ package io.ipfs.multibase;
 import java.util.Map;
 import java.util.TreeMap;
 
+import static io.ipfs.multibase.BlockEncoding.*;
+
 public class Multibase {
 
     public enum Base {
@@ -13,7 +15,8 @@ public class Multibase {
         Base16('f'), // highest char in hex
         Base32('b'), // rfc4648 no padding
         Base58Flickr('Z'), // highest char
-        Base58BTC('z'); // highest char
+        Base58BTC('z'), // highest char
+        Base64('m');
 
         private final char prefix;
 
@@ -37,12 +40,14 @@ public class Multibase {
 
     public static String encode(Base b, byte[] data) {
         switch (b) {
+            case Base64:
+                return b.prefix + Base64.encode(data);
             case Base58BTC:
                 return b.prefix + Base58.encode(data);
             case Base16:
-                return b.prefix + Base16.encode(data);
+                return b.prefix + Base16.encode(data).toLowerCase();
             case Base32:
-                return b.prefix + Base32.encode(data);
+                return b.prefix + Base32.encode(data).toLowerCase();
             default:
                 throw new UnsupportedEncodingException(b);
         }
@@ -56,12 +61,14 @@ public class Multibase {
         Base b = encoding(data);
         String rest = data.substring(1);
         switch (b) {
+            case Base64:
+                return Base64.decode(rest);
             case Base58BTC:
                 return Base58.decode(rest);
             case Base16:
-                return Base16.decode(rest);
+                return Base16.decode(rest.toUpperCase());
             case Base32:
-                return Base32.decode(rest);
+                return Base32.decode(rest.toUpperCase());
             default:
                 throw new UnsupportedEncodingException(b);
         }

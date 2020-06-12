@@ -5,6 +5,7 @@ import org.junit.Test;
 import java.util.Arrays;
 import java.util.Collection;
 
+import static io.ipfs.multibase.TestUtils.*;
 import static org.junit.Assert.*;
 
 import org.junit.runner.RunWith;
@@ -40,8 +41,12 @@ public class MultibaseTest {
                 {Multibase.Base.Base16, hexToBytes(""), "f"},
                 {Multibase.Base.Base16, hexToBytes("01"), "f01"},
                 {Multibase.Base.Base16, hexToBytes("0123456789ABCDEF"), "f0123456789abcdef"},
-                {Multibase.Base.Base32, hexToBytes("01A195B1B1BC81DDBDC9B190"), "bnbswy3dpeb3w64tmmq"},
-                {Multibase.Base.Base32, hexToBytes("0005C44881FE0EC595FFC7F14EE4B7060522875977F0B52C7E8F59DCA12B77480049B641A4"), "bafyreid7qoywk77r7rj3slobqfekdvs57qwuwh5d2z3sqsw52iabe3mqne"},
+                {Multibase.Base.Base32, hexToBytes("01A195B1B1BC81DDBDC9B190"), "bagqzlmnrxsa53pojwgia"},
+                {Multibase.Base.Base32, hexToBytes("017112207F83B1657FF1FC53B92DC18148A1D65DFC2D4B1FA3D677284ADDD200126D9069"), "bafyreid7qoywk77r7rj3slobqfekdvs57qwuwh5d2z3sqsw52iabe3mqne"},
+                {Multibase.Base.Base32, asciiToBytes("Hello World!"), "bjbswy3dpeblw64tmmqqq"},
+                {Multibase.Base.Base64, hexToBytes("01A195B1B1BC81DDBDC9B190"), "mAaGVsbG8gd29ybGQ"},
+                {Multibase.Base.Base64, asciiToBytes("Hello World!"), "mSGVsbG8gV29ybGQh"},
+                {Multibase.Base.Base64, asciiToBytes("The quick brown fox jumps over the lazy dog."), "mVGhlIHF1aWNrIGJyb3duIGZveCBqdW1wcyBvdmVyIHRoZSBsYXp5IGRvZy4"},
         });
     }
 
@@ -57,28 +62,6 @@ public class MultibaseTest {
         assertArrayEquals(String.format("Expected %s, but got %s", bytesToHex(raw), bytesToHex(output)), raw, output);
     }
 
-    //Copied from https://stackoverflow.com/a/140861
-    private static byte[] hexToBytes(String s) {
-        int len = s.length();
-        byte[] data = new byte[len / 2];
-        for (int i = 0; i < len; i += 2) {
-            data[i / 2] = (byte) ((Character.digit(s.charAt(i), 16) << 4)
-                    + Character.digit(s.charAt(i + 1), 16));
-        }
-        return data;
-    }
 
-    //Copied from https://stackoverflow.com/a/9855338
-    private static final char[] HEX_ARRAY = "0123456789ABCDEF".toCharArray();
-
-    private static String bytesToHex(byte[] bytes) {
-        char[] hexChars = new char[bytes.length * 2];
-        for (int j = 0; j < bytes.length; j++) {
-            int v = bytes[j] & 0xFF;
-            hexChars[j * 2] = HEX_ARRAY[v >>> 4];
-            hexChars[j * 2 + 1] = HEX_ARRAY[v & 0x0F];
-        }
-        return new String(hexChars);
-    }
 
 }
