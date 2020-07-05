@@ -49,6 +49,8 @@ public class MultibaseTest {
                 {Multibase.Base.Base32Hex, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "v8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144"},
                 {Multibase.Base.Base32HexUpper, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "V8HIM6PBEEHP62R39F9II0PBMCLP7IT38D5N6E89144"},
                 {Multibase.Base.Base58BTC, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "z36UQrhJq9fNDS7DiAHM9YXqDHMPfr4EMArvt"},
+                {Multibase.Base.Base64, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "mRGVjZW50cmFsaXplIGV2ZXJ5dGhpbmchISE"},
+                {Multibase.Base.Base64Pad, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "MRGVjZW50cmFsaXplIGV2ZXJ5dGhpbmchISE="},
         });
     }
 
