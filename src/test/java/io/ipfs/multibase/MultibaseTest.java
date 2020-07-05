@@ -40,8 +40,15 @@ public class MultibaseTest {
                 {Multibase.Base.Base16, hexToBytes(""), "f"},
                 {Multibase.Base.Base16, hexToBytes("01"), "f01"},
                 {Multibase.Base.Base16, hexToBytes("0123456789ABCDEF"), "f0123456789abcdef"},
-                {Multibase.Base.Base32, hexToBytes("01A195B1B1BC81DDBDC9B190"), "bnbswy3dpeb3w64tmmq"},
-                {Multibase.Base.Base32, hexToBytes("0005C44881FE0EC595FFC7F14EE4B7060522875977F0B52C7E8F59DCA12B77480049B641A4"), "bafyreid7qoywk77r7rj3slobqfekdvs57qwuwh5d2z3sqsw52iabe3mqne"},
+                {Multibase.Base.Base32, hexToBytes("4D756C74696261736520697320617765736F6D6521205C6F2F"), "bjv2wy5djmjqxgzjanfzsaylxmvzw63lfeeqfy3zp"},
+                {Multibase.Base.Base32, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "birswgzloorzgc3djpjssazlwmvzhs5dinfxgoijbee"},
+                {Multibase.Base.Base32, hexToBytes("01711220bb6ef01d25459cc803d0864cde4227cd2b779965eb1df34abeaec22c20fa42ea"), "bafyreif3n3yb2jkftteahuegjtpeej6nfn3zszpldxzuvpvoyiwcb6sc5i"},
+                {Multibase.Base.Base32, hexToBytes("0000000000"), "baaaaaaaa"},
+                {Multibase.Base.Base32, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "birswgzloorzgc3djpjssazlwmvzhs5dinfxgoijbee"},
+                {Multibase.Base.Base32Upper, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "BIRSWGZLOORZGC3DJPJSSAZLWMVZHS5DINFXGOIJBEE"},
+                {Multibase.Base.Base32Hex, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "v8him6pbeehp62r39f9ii0pbmclp7it38d5n6e89144"},
+                {Multibase.Base.Base32HexUpper, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "V8HIM6PBEEHP62R39F9II0PBMCLP7IT38D5N6E89144"},
+                {Multibase.Base.Base58BTC, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "z36UQrhJq9fNDS7DiAHM9YXqDHMPfr4EMArvt"},
         });
     }
 

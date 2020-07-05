@@ -2,16 +2,17 @@ package io.ipfs.multibase;
 
 import org.junit.Test;
 
-import static org.junit.Assert.assertNotEquals;
-
 public class MultibaseBadInputsTest {
 
     @Test
     public void invalidBase16Test() {
         String example = "f012"; // hex string of odd length
-        byte[] output = Multibase.decode(example);
-        String encoded = Multibase.encode(Multibase.Base.Base16, output);
-        assertNotEquals(example, encoded);
+        try {
+            byte[] output = Multibase.decode(example);
+            throw new RuntimeException();
+        } catch (IllegalStateException e) {
+            // expect error
+        }
     }
 
     @Test (expected = NumberFormatException.class)

@@ -1,21 +1,25 @@
 package io.ipfs.multibase;
 
-import java.util.Map;
-import java.util.TreeMap;
+import io.ipfs.multibase.binary.*;
+
+import java.util.*;
 
 public class Multibase {
 
     public enum Base {
-        // encoding(code)
-        Base2('0'), // binary has 1 and 0
-        Base8('7'), // highest char in octal
-        Base10('9'), // highest char in decimal
-        Base16('f'), // highest char in hex
-        Base32('b'), // rfc4648 no padding
-        Base58Flickr('Z'), // highest char
-        Base58BTC('z'); // highest char
+        Base1('1'),
+        Base2('0'),
+        Base8('7'),
+        Base10('9'),
+        Base16('f'),
+        Base32('b'),
+        Base32Upper('B'),
+        Base32Hex('v'),
+        Base32HexUpper('V'),
+        Base58Flickr('Z'),
+        Base58BTC('z');
 
-        private final char prefix;
+        public char prefix;
 
         Base(char prefix) {
             this.prefix = prefix;
@@ -41,7 +45,13 @@ public class Multibase {
             case Base16:
                 return b.prefix + Base16.encode(data);
             case Base32:
-                return b.prefix + Base32.encode(data);
+                return b.prefix + new String(new Base32().encode(data)).toLowerCase().replaceAll("=", "");
+            case Base32Upper:
+                return b.prefix + new String(new Base32().encode(data)).replaceAll("=", "");
+            case Base32Hex:
+                return b.prefix + new String(new Base32(true).encode(data)).toLowerCase().replaceAll("=", "");
+            case Base32HexUpper:
+                return b.prefix + new String(new Base32(true).encode(data)).replaceAll("=", "");
             default:
                 throw new IllegalStateException("Unsupported base encoding: " + b.name());
         }
@@ -60,7 +70,13 @@ public class Multibase {
             case Base16:
                 return Base16.decode(rest);
             case Base32:
-                return Base32.decode(rest);
+                return new Base32().decode(rest);
+            case Base32Upper:
+                return new Base32().decode(rest.toLowerCase());
+            case Base32Hex:
+                return new Base32(true).decode(rest);
+            case Base32HexUpper:
+                return new Base32(true).decode(rest.toLowerCase());
             default:
                 throw new IllegalStateException("Unsupported base encoding: " + b.name());
         }
