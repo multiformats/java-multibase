@@ -43,6 +43,7 @@ public class MultibaseTest {
                 {Multibase.Base.Base16, hexToBytes("0123456789ABCDEF"), "f0123456789abcdef"},
                 {Multibase.Base.Base32, hexToBytes("01A195B1B1BC81DDBDC9B190"), "bagqzlmnrxsa53pojwgia"},
                 {Multibase.Base.Base32, hexToBytes("017112207F83B1657FF1FC53B92DC18148A1D65DFC2D4B1FA3D677284ADDD200126D9069"), "bafyreid7qoywk77r7rj3slobqfekdvs57qwuwh5d2z3sqsw52iabe3mqne"},
+                {Multibase.Base.Base32, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "birswgzloorzgc3djpjssazlwmvzhs5dinfxgoijbee"},
                 {Multibase.Base.Base32, asciiToBytes("Hello World!"), "bjbswy3dpeblw64tmmqqq"},
                 {Multibase.Base.Base64, hexToBytes("01A195B1B1BC81DDBDC9B190"), "mAaGVsbG8gd29ybGQ"},
                 {Multibase.Base.Base64, asciiToBytes("Hello World!"), "mSGVsbG8gV29ybGQh"},
