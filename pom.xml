@@ -4,7 +4,7 @@
 
 	<groupId>com.github.multiformats</groupId>
 	<artifactId>java-multibase</artifactId>
-	<version>v1.1.0-SNAPSHOT</version>
+	<version>v1.1.0</version>
 	<packaging>jar</packaging>
 
 	<name>multibase</name>
