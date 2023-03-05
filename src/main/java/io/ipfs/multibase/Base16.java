@@ -3,7 +3,7 @@ package io.ipfs.multibase;
 public class Base16 {
     public static byte[] decode(String hex) {
         if (hex.length() % 2 == 1)
-            throw new IllegalStateException("Must have an even number of hex digits to convert to bytes!");
+            throw new IllegalArgumentException("Must have an even number of hex digits to convert to bytes!");
         byte[] res = new byte[hex.length()/2];
         for (int i=0; i < res.length; i++)
             res[i] = (byte) Integer.parseInt(hex.substring(2*i, 2*i+2), 16);

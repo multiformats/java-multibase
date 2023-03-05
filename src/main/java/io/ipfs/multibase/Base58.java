@@ -106,7 +106,7 @@ public class Base58 {
             char c = input.charAt(i);
             int digit = c < 128 ? INDEXES[c] : -1;
             if (digit < 0) {
-                throw new IllegalStateException("InvalidCharacter in base 58");
+                throw new IllegalArgumentException(String.format("Invalid character in Base58: 0x%04x", (int) c));
             }
             input58[i] = (byte) digit;
         }
