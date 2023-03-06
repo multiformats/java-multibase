@@ -45,7 +45,7 @@ public class Multibase {
 
         public static Base lookup(char p) {
             if (!lookup.containsKey(p))
-                throw new IllegalStateException("Unknown Multibase type: " + p);
+                throw new IllegalArgumentException("Unknown Multibase type: " + p);
             return lookup.get(p);
         }
     }
@@ -87,7 +87,7 @@ public class Multibase {
             case Base64UrlPad:
                 return b.prefix + Base64.encodeBase64String(data).replaceAll("\\+", "-").replaceAll("/", "_");
             default:
-                throw new IllegalStateException("Unsupported base encoding: " + b.name());
+                throw new UnsupportedOperationException("Unsupported base encoding: " + b.name());
         }
     }
 
@@ -96,6 +96,9 @@ public class Multibase {
     }
 
     public static byte[] decode(String data) {
+        if(data.isEmpty()) {
+            throw new IllegalArgumentException("Cannot decode an empty string");
+        }
         Base b = encoding(data);
         String rest = data.substring(1);
         switch (b) {
@@ -127,7 +130,7 @@ public class Multibase {
             case Base64UrlPad:
                 return Base64.decodeBase64(rest);
             default:
-                throw new IllegalStateException("Unsupported base encoding: " + b.name());
+                throw new UnsupportedOperationException("Unsupported base encoding: " + b.name());
         }
     }
 }
