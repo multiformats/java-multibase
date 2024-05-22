@@ -34,7 +34,7 @@ for Maven, you can add the follwing sections to your POM.XML:
     <dependency>
       <groupId>com.github.multiformats</groupId>
       <artifactId>java-multibase</artifactId>
-      <version>v1.0.0</version>
+      <version>v1.1.1</version>
     </dependency>
   </dependencies>
 ```
