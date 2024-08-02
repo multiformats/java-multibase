@@ -41,22 +41,14 @@ for Maven, you can add the follwing sections to your POM.XML:
 
 ## Testing
 
-### Ant
-`ant test`
-
-### Maven
 `mvn test`
 
 ## Building
 
-### Ant
-`ant dist` will build a JAR file in the `./dist` suitable for manual inclusion in a project. Dependent libraries are included in `./dist/lib`.
-
-### Maven
 `mvn package` will build a JAR file with Maven dependency information.
 
 ## Releasing
-The version number is specified in `build.xml` and `pom.xml` and must be changed in both places in order to be accurately reflected in the JAR file manifest. A git tag must be added in the format "vx.x.x" for JitPack to work.
+The version number is specified in the `pom.xml` and must be changed in both places in order to be accurately reflected in the JAR file manifest. A git tag must be added in the format "vx.x.x" for JitPack to work.
 
 ## Maintainers
 
