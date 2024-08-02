@@ -1,30 +1,16 @@
 package io.ipfs.multibase;
 
-import org.junit.Test;
-
 import java.util.Arrays;
 import java.util.Collection;
 
-import static org.junit.Assert.*;
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
 
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameters;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 
-@RunWith(Parameterized.class)
 public class MultibaseTest {
 
-    private Multibase.Base base;
-    private byte[] raw;
-    private String encoded;
-
-    public MultibaseTest(Multibase.Base base, byte[] raw, String encoded) {
-        this.base = base;
-        this.raw = raw;
-        this.encoded = encoded;
-    }
-
-    @Parameters(name = "{index}: {0}, {2}")
     public static Collection<Object[]> data() {
         return Arrays.asList(new Object[][]{
                 {Multibase.Base.Base58BTC, hexToBytes("1220120F6AF601D46E10B2D2E11ED71C55D25F3042C22501E41D1246E7A1E9D3D8EC"), "zQmPZ9gcCEpqKTo6aq61g2nXGUhM4iCL3ewB6LDXZCtioEB"},
@@ -64,16 +50,18 @@ public class MultibaseTest {
         });
     }
 
-    @Test
-    public void testEncode() {
+    @MethodSource("data")
+    @ParameterizedTest(name = "{index}: {0}, {2}")
+    public void testEncode(Multibase.Base base, byte[] raw, String encoded) {
         String output = Multibase.encode(base, raw);
         assertEquals(encoded, output);
     }
 
-    @Test
-    public void testDecode() {
+    @MethodSource("data")
+    @ParameterizedTest(name = "{index}: {0}, {2}")
+    public void testDecode(Multibase.Base base, byte[] raw, String encoded) {
         byte[] output = Multibase.decode(encoded);
-        assertArrayEquals(String.format("Expected %s, but got %s", bytesToHex(raw), bytesToHex(output)), raw, output);
+        assertArrayEquals(raw, output, String.format("Expected %s, but got %s", bytesToHex(raw), bytesToHex(output)));
     }
 
     //Copied from https://stackoverflow.com/a/140861

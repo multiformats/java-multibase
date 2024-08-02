@@ -2,19 +2,14 @@ package io.ipfs.multibase;
 
 import java.util.Arrays;
 import java.util.Collection;
-import org.junit.Test;
-import org.junit.runner.RunWith;
-import org.junit.runners.Parameterized;
-import org.junit.runners.Parameterized.Parameter;
-import org.junit.runners.Parameterized.Parameters;
 
-@RunWith(Parameterized.class)
+import org.junit.jupiter.params.ParameterizedTest;
+import org.junit.jupiter.params.provider.MethodSource;
+
+import static org.junit.jupiter.api.Assertions.assertThrows;
+
 public class MultibaseBadInputsTest {
 
-    @Parameter
-    public String input;
-
-    @Parameters(name = "{index}: \"{0}\"")
     public static Collection<String> data() {
         return Arrays.asList(
             "f012", // Hex string of odd length, not allowed in Base16
@@ -25,9 +20,12 @@ public class MultibaseBadInputsTest {
         );
     }
 
-    @Test (expected = IllegalArgumentException.class)
-    public void badInputTest() {
-        Multibase.decode(input);
+    @MethodSource("data")
+    @ParameterizedTest(name = "{index}: \"{0}\"")
+    public void badInputTest(String input) {
+        assertThrows(IllegalArgumentException.class, () -> {
+            Multibase.decode(input);
+        });
     }
 
 }
