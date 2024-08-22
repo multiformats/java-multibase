@@ -22,7 +22,7 @@ byte[] decoded = Multibase.decode(encoded);
 You can use this project by building the JAR file as specified below, or by using [JitPack](https://jitpack.io/#multiformats/java-multibase/) (also supporting Gradle, SBT, etc).
 
 for Maven, you can add the follwing sections to your POM.XML:
-```
+```xml
   <repositories>
     <repository>
         <id>jitpack.io</id>
@@ -48,7 +48,8 @@ for Maven, you can add the follwing sections to your POM.XML:
 `mvn package` will build a JAR file with Maven dependency information.
 
 ## Releasing
-The version number is specified in the `pom.xml` and must be changed in both places in order to be accurately reflected in the JAR file manifest. A git tag must be added in the format "vx.x.x" for JitPack to work.
+
+The version number is specified in the `pom.xml` file and must be changed in order to be accurately reflected in the JAR file manifest. A git tag must be added in the format "vx.x.x" for JitPack to work.
 
 ## Maintainers
 
