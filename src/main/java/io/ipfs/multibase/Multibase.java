@@ -9,42 +9,42 @@ import io.ipfs.multibase.binary.Base64;
 public class Multibase {
 
     public enum Base {
-        Base1('1'),
-        Base2('0'),
-        Base8('7'),
-        Base10('9'),
-        Base16('f'),
-        Base16Upper('F'),
-        Base32('b'),
-        Base32Upper('B'),
-        Base32Pad('c'),
-        Base32PadUpper('C'),
-        Base32Hex('v'),
-        Base32HexUpper('V'),
-        Base32HexPad('t'),
-        Base32HexPadUpper('T'),
-        Base36('k'),
-        Base36Upper('K'),
-        Base58BTC('z'),
-        Base58Flickr('Z'),
-        Base64('m'),
-        Base64Url('u'),
-        Base64Pad('M'),
-        Base64UrlPad('U');
+        Base1("1"),
+        Base2("0"),
+        Base8("7"),
+        Base10("9"),
+        Base16("f"),
+        Base16Upper("F"),
+        Base32("b"),
+        Base32Upper("B"),
+        Base32Pad("c"),
+        Base32PadUpper("C"),
+        Base32Hex("v"),
+        Base32HexUpper("V"),
+        Base32HexPad("t"),
+        Base32HexPadUpper("T"),
+        Base36("k"),
+        Base36Upper("K"),
+        Base58BTC("z"),
+        Base58Flickr("Z"),
+        Base64("m"),
+        Base64Url("u"),
+        Base64Pad("M"),
+        Base64UrlPad("U");
 
-        public char prefix;
+        public String prefix;
 
-        Base(char prefix) {
+        Base(String prefix) {
             this.prefix = prefix;
         }
 
-        private static Map<Character, Base> lookup = new TreeMap<>();
+        private static Map<String, Base> lookup = new TreeMap<>();
         static {
             for (Base b : Base.values())
                 lookup.put(b.prefix, b);
         }
 
-        public static Base lookup(char p) {
+        public static Base lookup(String p) {
             if (!lookup.containsKey(p))
                 throw new IllegalArgumentException("Unknown Multibase type: " + p);
             return lookup.get(p);
@@ -53,7 +53,6 @@ public class Multibase {
 
     public static String encode(Base b, byte[] data) {
         switch (b) {
-            case
             case Base58BTC:
                 return b.prefix + Base58.encode(data);
             case Base16:
@@ -94,7 +93,7 @@ public class Multibase {
     }
 
     public static Base encoding(String data) {
-        return Base.lookup(data.charAt(0));
+        return Base.lookup(data.substring(0, 1));
     }
 
     public static byte[] decode(String data) {
