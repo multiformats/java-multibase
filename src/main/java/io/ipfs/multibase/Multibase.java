@@ -1,9 +1,10 @@
 package io.ipfs.multibase;
 
-import io.ipfs.multibase.binary.*;
-import io.ipfs.multibase.binary.Base64;
+import java.util.Map;
+import java.util.TreeMap;
 
-import java.util.*;
+import io.ipfs.multibase.binary.Base32;
+import io.ipfs.multibase.binary.Base64;
 
 public class Multibase {
 
@@ -39,7 +40,7 @@ public class Multibase {
 
         private static Map<Character, Base> lookup = new TreeMap<>();
         static {
-            for (Base b: Base.values())
+            for (Base b : Base.values())
                 lookup.put(b.prefix, b);
         }
 
@@ -52,6 +53,7 @@ public class Multibase {
 
     public static String encode(Base b, byte[] data) {
         switch (b) {
+            case
             case Base58BTC:
                 return b.prefix + Base58.encode(data);
             case Base16:
@@ -96,7 +98,7 @@ public class Multibase {
     }
 
     public static byte[] decode(String data) {
-        if(data.isEmpty()) {
+        if (data.isEmpty()) {
             throw new IllegalArgumentException("Cannot decode an empty string");
         }
         Base b = encoding(data);
