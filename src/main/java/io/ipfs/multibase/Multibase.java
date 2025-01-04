@@ -30,7 +30,8 @@ public class Multibase {
         Base64("m"),
         Base64Url("u"),
         Base64Pad("M"),
-        Base64UrlPad("U");
+        Base64UrlPad("U"),
+        Base256Emoji("🚀");
 
         public String prefix;
 
@@ -45,10 +46,13 @@ public class Multibase {
         }
 
         public static Base lookup(String data) {
-            String p = data.substring(0, 1);
-            if (!lookup.containsKey(p))
-                throw new IllegalArgumentException("Unknown Multibase type: " + p);
-            return lookup.get(p);
+            String p = Character.toString(data.codePointAt(0));
+            Base base = lookup.get(p);
+            if (base != null)
+                return base;
+            if (data.startsWith(Base256Emoji.prefix))
+                return Base256Emoji;
+            throw new IllegalArgumentException("Unknown Multibase type: " + p);
         }
     }
 
@@ -88,6 +92,8 @@ public class Multibase {
                 return b.prefix + Base64.encodeBase64String(data);
             case Base64UrlPad:
                 return b.prefix + Base64.encodeBase64String(data).replaceAll("\\+", "-").replaceAll("/", "_");
+            case Base256Emoji:
+                return b.prefix + Base256Emoji.encode(data);
             default:
                 throw new UnsupportedOperationException("Unsupported base encoding: " + b.name());
         }
@@ -102,7 +108,7 @@ public class Multibase {
             throw new IllegalArgumentException("Cannot decode an empty string");
         }
         Base b = encoding(data);
-        String rest = data.substring(1);
+        String rest = safeSubstringFromIndexOne(data);
         switch (b) {
             case Base58BTC:
                 return Base58.decode(rest);
@@ -131,8 +137,21 @@ public class Multibase {
             case Base64Pad:
             case Base64UrlPad:
                 return Base64.decodeBase64(rest);
+            case Base256Emoji:
+                return Base256Emoji.decode(rest);
             default:
                 throw new UnsupportedOperationException("Unsupported base encoding: " + b.name());
         }
+    }
+
+    private static String safeSubstringFromIndexOne(String data) {
+        // Check if there's at least 2 code points in the string
+        if (data.codePointCount(0, data.length()) <= 1) {
+            return "";
+        }
+
+        // If so, do an Emoji-safe data.substring(1) equivalent:
+        int charIndex = data.offsetByCodePoints(0, 1);
+        return data.substring(charIndex);
     }
 }

@@ -16,7 +16,8 @@ public class MultibaseBadInputsTest {
                 "f0g", // 'g' char is not allowed in Base16
                 "zt1Zv2yaI", // 'I' char is not allowed in Base58
                 "2", // '2' is not a valid encoding marker
-                "" // Empty string is not a valid multibase
+                "", // Empty string is not a valid multibase
+                "🚀🫕" // This Emoji (Swiss Fondue) is not part of the Base256Emoji table
         );
     }
 
