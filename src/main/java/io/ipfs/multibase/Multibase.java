@@ -44,7 +44,8 @@ public class Multibase {
                 lookup.put(b.prefix, b);
         }
 
-        public static Base lookup(String p) {
+        public static Base lookup(String data) {
+            String p = data.substring(0, 1);
             if (!lookup.containsKey(p))
                 throw new IllegalArgumentException("Unknown Multibase type: " + p);
             return lookup.get(p);
@@ -93,7 +94,7 @@ public class Multibase {
     }
 
     public static Base encoding(String data) {
-        return Base.lookup(data.substring(0, 1));
+        return Base.lookup(data);
     }
 
     public static byte[] decode(String data) {
