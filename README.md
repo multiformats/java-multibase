@@ -5,13 +5,14 @@
 [![](https://img.shields.io/badge/freenode-%23ipfs-blue.svg?style=flat-square)](https://webchat.freenode.net/?channels=%23ipfs)
 [![](https://img.shields.io/badge/readme%20style-standard-brightgreen.svg?style=flat-square)](https://github.com/RichardLitt/standard-readme)
 
-> A Java implementation of [Multibase](https://github.com/multiformats/multibase)
+> A Java implementation of [Multibase](https://github.com/multiformats/multibase) with encoding & decoding support for: base16[upper], base32[hex][pad][upper], base36[upper], base58btc, base64[url][pad], [base256emoji](https://github.com/multiformats/java-multibase/issues/35).
 
 ## Install
 
 Simply clone this repo.
 
 ## Usage
+
 ```java
 byte[] data = ...
 String encoded = Multibase.encode(Multibase.Base.Base58BTC, data);
@@ -19,9 +20,11 @@ byte[] decoded = Multibase.decode(encoded);
 ```
 
 ## Dependency
+
 You can use this project by building the JAR file as specified below, or by using [JitPack](https://jitpack.io/#multiformats/java-multibase/) (also supporting Gradle, SBT, etc).
 
 for Maven, you can add the follwing sections to your POM.XML:
+
 ```xml
   <repositories>
     <repository>
