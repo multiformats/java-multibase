@@ -47,6 +47,9 @@ public class MultibaseTest {
                 {Multibase.Base.Base64Url, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "uRGVjZW50cmFsaXplIGV2ZXJ5dGhpbmchISE"},
                 {Multibase.Base.Base64Pad, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "MRGVjZW50cmFsaXplIGV2ZXJ5dGhpbmchISE="},
                 {Multibase.Base.Base64UrlPad, hexToBytes("446563656e7472616c697a652065766572797468696e67212121"), "URGVjZW50cmFsaXplIGV2ZXJ5dGhpbmchISE="},
+
+                {Multibase.Base.Base256Emoji, hexToBytes(""), "🚀"},
+                {Multibase.Base.Base256Emoji, hexToBytes("0107FF"), "🚀🪐🌓🥂"},
         });
     }
 

@@ -1,52 +1,58 @@
 package io.ipfs.multibase;
 
-import io.ipfs.multibase.binary.*;
-import io.ipfs.multibase.binary.Base64;
+import java.util.Map;
+import java.util.TreeMap;
 
-import java.util.*;
+import io.ipfs.multibase.binary.Base32;
+import io.ipfs.multibase.binary.Base64;
 
 public class Multibase {
 
     public enum Base {
-        Base1('1'),
-        Base2('0'),
-        Base8('7'),
-        Base10('9'),
-        Base16('f'),
-        Base16Upper('F'),
-        Base32('b'),
-        Base32Upper('B'),
-        Base32Pad('c'),
-        Base32PadUpper('C'),
-        Base32Hex('v'),
-        Base32HexUpper('V'),
-        Base32HexPad('t'),
-        Base32HexPadUpper('T'),
-        Base36('k'),
-        Base36Upper('K'),
-        Base58BTC('z'),
-        Base58Flickr('Z'),
-        Base64('m'),
-        Base64Url('u'),
-        Base64Pad('M'),
-        Base64UrlPad('U');
+        Base1("1"),
+        Base2("0"),
+        Base8("7"),
+        Base10("9"),
+        Base16("f"),
+        Base16Upper("F"),
+        Base32("b"),
+        Base32Upper("B"),
+        Base32Pad("c"),
+        Base32PadUpper("C"),
+        Base32Hex("v"),
+        Base32HexUpper("V"),
+        Base32HexPad("t"),
+        Base32HexPadUpper("T"),
+        Base36("k"),
+        Base36Upper("K"),
+        Base58BTC("z"),
+        Base58Flickr("Z"),
+        Base64("m"),
+        Base64Url("u"),
+        Base64Pad("M"),
+        Base64UrlPad("U"),
+        Base256Emoji("🚀");
 
-        public char prefix;
+        public String prefix;
 
-        Base(char prefix) {
+        Base(String prefix) {
             this.prefix = prefix;
         }
 
-        private static Map<Character, Base> lookup = new TreeMap<>();
+        private static Map<String, Base> lookup = new TreeMap<>();
         static {
-            for (Base b: Base.values())
+            for (Base b : Base.values())
                 lookup.put(b.prefix, b);
         }
 
-        public static Base lookup(char p) {
-            if (!lookup.containsKey(p))
-                throw new IllegalArgumentException("Unknown Multibase type: " + p);
-            return lookup.get(p);
+        public static Base lookup(String data) {
+            String p = Character.toString(data.codePointAt(0));
+            Base base = lookup.get(p);
+            if (base != null)
+                return base;
+            if (data.startsWith(Base256Emoji.prefix))
+                return Base256Emoji;
+            throw new IllegalArgumentException("Unknown Multibase type: " + p);
         }
     }
 
@@ -86,21 +92,23 @@ public class Multibase {
                 return b.prefix + Base64.encodeBase64String(data);
             case Base64UrlPad:
                 return b.prefix + Base64.encodeBase64String(data).replaceAll("\\+", "-").replaceAll("/", "_");
+            case Base256Emoji:
+                return b.prefix + Base256Emoji.encode(data);
             default:
                 throw new UnsupportedOperationException("Unsupported base encoding: " + b.name());
         }
     }
 
     public static Base encoding(String data) {
-        return Base.lookup(data.charAt(0));
+        return Base.lookup(data);
     }
 
     public static byte[] decode(String data) {
-        if(data.isEmpty()) {
+        if (data.isEmpty()) {
             throw new IllegalArgumentException("Cannot decode an empty string");
         }
         Base b = encoding(data);
-        String rest = data.substring(1);
+        String rest = safeSubstringFromIndexOne(data);
         switch (b) {
             case Base58BTC:
                 return Base58.decode(rest);
@@ -129,8 +137,21 @@ public class Multibase {
             case Base64Pad:
             case Base64UrlPad:
                 return Base64.decodeBase64(rest);
+            case Base256Emoji:
+                return Base256Emoji.decode(rest);
             default:
                 throw new UnsupportedOperationException("Unsupported base encoding: " + b.name());
         }
+    }
+
+    private static String safeSubstringFromIndexOne(String data) {
+        // Check if there's at least 2 code points in the string
+        if (data.codePointCount(0, data.length()) <= 1) {
+            return "";
+        }
+
+        // If so, do an Emoji-safe data.substring(1) equivalent:
+        int charIndex = data.offsetByCodePoints(0, 1);
+        return data.substring(charIndex);
     }
 }
