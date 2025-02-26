@@ -9,7 +9,6 @@ import org.junit.jupiter.params.provider.MethodSource;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertTrue;
-import static org.junit.jupiter.api.Assertions.assertFalse;
 
 public class MultibaseTest {
 
@@ -71,25 +70,8 @@ public class MultibaseTest {
 
     @MethodSource("data")
     @ParameterizedTest(name = "{index}: {0}, {2}")
-    public void testIsValid(Multibase.Base base, byte[] raw, String encoded) {
-        assertTrue(Multibase.isValid(encoded));
-    }
-
-    public static Collection<String> invalidData() {
-        return Arrays.asList(
-                "f012", // Hex string of odd length, not allowed in Base16
-                "f0g", // 'g' char is not allowed in Base16
-                "zt1Zv2yaI", // 'I' char is not allowed in Base58
-                "2", // '2' is not a valid encoding marker
-                "", // Empty string is not a valid multibase
-                "🚀🫕" // This Emoji (Swiss Fondue) is not part of the Base256Emoji table
-        );
-    }
-
-    @MethodSource("invalidData")
-    @ParameterizedTest(name = "{index}: \"{0}\"")
-    public void testIsInvalid(String input) {
-        assertFalse(Multibase.isValid(input));
+    public void testHasValidPrefix(Multibase.Base base, byte[] raw, String encoded) {
+        assertTrue(Multibase.hasValidPrefix(encoded));
     }
 
     //Copied from https://stackoverflow.com/a/140861
