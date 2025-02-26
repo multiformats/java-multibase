@@ -1,6 +1,7 @@
 package io.ipfs.multibase;
 
 import java.util.Map;
+import java.util.Optional;
 import java.util.TreeMap;
 
 import io.ipfs.multibase.binary.Base32;
@@ -45,14 +46,21 @@ public class Multibase {
                 lookup.put(b.prefix, b);
         }
 
-        public static Base lookup(String data) {
+        private static Optional<Base> lookupOptional(String data) {
+            if (data == null || data.isEmpty())
+                return Optional.empty();
             String p = Character.toString(data.codePointAt(0));
             Base base = lookup.get(p);
             if (base != null)
-                return base;
+                return Optional.of(base);
             if (data.startsWith(Base256Emoji.prefix))
-                return Base256Emoji;
-            throw new IllegalArgumentException("Unknown Multibase type: " + p);
+                return Optional.of(Base256Emoji);
+            return Optional.empty();
+        }
+
+        public static Base lookup(String data) {
+            return lookupOptional(data)
+                    .orElseThrow(() -> new IllegalArgumentException("Unknown Multibase type: " + data));
         }
     }
 
@@ -153,5 +161,23 @@ public class Multibase {
         // If so, do an Emoji-safe data.substring(1) equivalent:
         int charIndex = data.offsetByCodePoints(0, 1);
         return data.substring(charIndex);
+    }
+
+    /**
+     * Check if the given data has a valid multibase prefix.
+     *
+     * <p>
+     * Please note that "having a valid prefix" is NOT the same as "being an
+     * entirely valid multibase string"; even if <tt>true</tt>, it's still entirely
+     * possible for {@link #decode(String)} to throw an
+     * <tt>IllegalArgumentException</tt>, if prefix is valid, but the following
+     * data is not.
+     *
+     * @param data Multibase string to check.
+     * @return true if the data has a valid multibase prefix, false otherwise; but
+     *         see above.
+     */
+    public static boolean hasValidPrefix(String data) {
+        return Base.lookupOptional(data).isPresent();
     }
 }

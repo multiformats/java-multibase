@@ -1,5 +1,6 @@
 package io.ipfs.multibase;
 
+import static org.junit.jupiter.api.Assertions.assertFalse;
 import static org.junit.jupiter.api.Assertions.assertThrows;
 
 import java.util.Arrays;
@@ -29,4 +30,17 @@ public class MultibaseBadInputsTest {
         });
     }
 
+    public static Collection<String> invalidPrefix() {
+        return Arrays.asList(
+                "2", // '2' is not a valid encoding marker
+                "", // Empty string is not a valid multibase
+                "🫕🚀" // This not a valid Emoji Multibase (note how it's inverted)
+        );
+    }
+
+    @MethodSource("invalidPrefix")
+    @ParameterizedTest(name = "{index}: \"{0}\"")
+    public void invalidPrefix(String input) {
+        assertFalse(Multibase.hasValidPrefix(input));
+    }
 }

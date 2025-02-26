@@ -17,6 +17,7 @@ Simply clone this repo.
 byte[] data = ...
 String encoded = Multibase.encode(Multibase.Base.Base58BTC, data);
 byte[] decoded = Multibase.decode(encoded);
+boolean isValid = Multibase.isValid(encoded);
 ```
 
 ## Dependency
