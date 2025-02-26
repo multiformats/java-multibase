@@ -154,4 +154,13 @@ public class Multibase {
         int charIndex = data.offsetByCodePoints(0, 1);
         return data.substring(charIndex);
     }
+
+    public static boolean isValid(String data) {
+        try {
+            decode(data);
+            return true;
+        } catch (IllegalArgumentException | UnsupportedOperationException e) {
+            return false;
+        }
+    }
 }
