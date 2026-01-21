@@ -21,83 +21,85 @@ import java.util.Map;
  */
 
 /**
- * <a href="https://github.com/multiformats/multibase/blob/master/rfcs/Base256Emoji.md">Base256Emoji</a>
- * is an encoding mapping each 0-255 byte value to (or from) a specific single Unicode Emoji character.
+ * <a
+ * href="https://github.com/multiformats/multibase/blob/master/rfcs/Base256Emoji.md">Base256Emoji</a>
+ * is an encoding mapping each 0-255 byte value to (or from) a specific single Unicode Emoji
+ * character.
  *
  * @author <a href="https://www.vorburger.ch/">Michael Vorburger.ch</a>
  */
 public class Base256Emoji {
 
-    // from https://github.com/multiformats/multibase/blob/master/rfcs/Base256Emoji.md
-    private static final String[] EMOJIS = {
-            "🚀", "🪐", "☄", "🛰", "🌌", "🌑", "🌒", "🌓", "🌔", "🌕",
-            "🌖", "🌗", "🌘", "🌍", "🌏", "🌎", "🐉", "☀", "💻", "🖥",
-            "💾", "💿", "😂", "❤", "😍", "🤣", "😊", "🙏", "💕", "😭",
-            "😘", "👍", "😅", "👏", "😁", "🔥", "🥰", "💔", "💖", "💙",
-            "😢", "🤔", "😆", "🙄", "💪", "😉", "☺", "👌", "🤗", "💜",
-            "😔", "😎", "😇", "🌹", "🤦", "🎉", "💞", "✌", "✨", "🤷",
-            "😱", "😌", "🌸", "🙌", "😋", "💗", "💚", "😏", "💛", "🙂",
-            "💓", "🤩", "😄", "😀", "🖤", "😃", "💯", "🙈", "👇", "🎶",
-            "😒", "🤭", "❣", "😜", "💋", "👀", "😪", "😑", "💥", "🙋",
-            "😞", "😩", "😡", "🤪", "👊", "🥳", "😥", "🤤", "👉", "💃",
-            "😳", "✋", "😚", "😝", "😴", "🌟", "😬", "🙃", "🍀", "🌷",
-            "😻", "😓", "⭐", "✅", "🥺", "🌈", "😈", "🤘", "💦", "✔",
-            "😣", "🏃", "💐", "☹", "🎊", "💘", "😠", "☝", "😕", "🌺",
-            "🎂", "🌻", "😐", "🖕", "💝", "🙊", "😹", "🗣", "💫", "💀",
-            "👑", "🎵", "🤞", "😛", "🔴", "😤", "🌼", "😫", "⚽", "🤙",
-            "☕", "🏆", "🤫", "👈", "😮", "🙆", "🍻", "🍃", "🐶", "💁",
-            "😲", "🌿", "🧡", "🎁", "⚡", "🌞", "🎈", "❌", "✊", "👋",
-            "😰", "🤨", "😶", "🤝", "🚶", "💰", "🍓", "💢", "🤟", "🙁",
-            "🚨", "💨", "🤬", "✈", "🎀", "🍺", "🤓", "😙", "💟", "🌱",
-            "😖", "👶", "🥴", "▶", "➡", "❓", "💎", "💸", "⬇", "😨",
-            "🌚", "🦋", "😷", "🕺", "⚠", "🙅", "😟", "😵", "👎", "🤲",
-            "🤠", "🤧", "📌", "🔵", "💅", "🧐", "🐾", "🍒", "😗", "🤑",
-            "🌊", "🤯", "🐷", "☎", "💧", "😯", "💆", "👆", "🎤", "🙇",
-            "🍑", "❄", "🌴", "💣", "🐸", "💌", "📍", "🥀", "🤢", "👅",
-            "💡", "💩", "👐", "📸", "👻", "🤐", "🤮", "🎼", "🥵", "🚩",
-            "🍎", "🍊", "👼", "💍", "📣", "🥂" };
+  // from https://github.com/multiformats/multibase/blob/master/rfcs/Base256Emoji.md
+  private static final String[] EMOJIS = {
+    "🚀", "🪐", "☄", "🛰", "🌌", "🌑", "🌒", "🌓", "🌔", "🌕",
+    "🌖", "🌗", "🌘", "🌍", "🌏", "🌎", "🐉", "☀", "💻", "🖥",
+    "💾", "💿", "😂", "❤", "😍", "🤣", "😊", "🙏", "💕", "😭",
+    "😘", "👍", "😅", "👏", "😁", "🔥", "🥰", "💔", "💖", "💙",
+    "😢", "🤔", "😆", "🙄", "💪", "😉", "☺", "👌", "🤗", "💜",
+    "😔", "😎", "😇", "🌹", "🤦", "🎉", "💞", "✌", "✨", "🤷",
+    "😱", "😌", "🌸", "🙌", "😋", "💗", "💚", "😏", "💛", "🙂",
+    "💓", "🤩", "😄", "😀", "🖤", "😃", "💯", "🙈", "👇", "🎶",
+    "😒", "🤭", "❣", "😜", "💋", "👀", "😪", "😑", "💥", "🙋",
+    "😞", "😩", "😡", "🤪", "👊", "🥳", "😥", "🤤", "👉", "💃",
+    "😳", "✋", "😚", "😝", "😴", "🌟", "😬", "🙃", "🍀", "🌷",
+    "😻", "😓", "⭐", "✅", "🥺", "🌈", "😈", "🤘", "💦", "✔",
+    "😣", "🏃", "💐", "☹", "🎊", "💘", "😠", "☝", "😕", "🌺",
+    "🎂", "🌻", "😐", "🖕", "💝", "🙊", "😹", "🗣", "💫", "💀",
+    "👑", "🎵", "🤞", "😛", "🔴", "😤", "🌼", "😫", "⚽", "🤙",
+    "☕", "🏆", "🤫", "👈", "😮", "🙆", "🍻", "🍃", "🐶", "💁",
+    "😲", "🌿", "🧡", "🎁", "⚡", "🌞", "🎈", "❌", "✊", "👋",
+    "😰", "🤨", "😶", "🤝", "🚶", "💰", "🍓", "💢", "🤟", "🙁",
+    "🚨", "💨", "🤬", "✈", "🎀", "🍺", "🤓", "😙", "💟", "🌱",
+    "😖", "👶", "🥴", "▶", "➡", "❓", "💎", "💸", "⬇", "😨",
+    "🌚", "🦋", "😷", "🕺", "⚠", "🙅", "😟", "😵", "👎", "🤲",
+    "🤠", "🤧", "📌", "🔵", "💅", "🧐", "🐾", "🍒", "😗", "🤑",
+    "🌊", "🤯", "🐷", "☎", "💧", "😯", "💆", "👆", "🎤", "🙇",
+    "🍑", "❄", "🌴", "💣", "🐸", "💌", "📍", "🥀", "🤢", "👅",
+    "💡", "💩", "👐", "📸", "👻", "🤐", "🤮", "🎼", "🥵", "🚩",
+    "🍎", "🍊", "👼", "💍", "📣", "🥂"
+  };
 
-    // TODO Propose adding a Guava dependency to use ImmutableMap instead of this
+  // TODO Propose adding a Guava dependency to use ImmutableMap instead of this
 
-    private static final Map<String, Integer> EMOJI_TO_INDEX;
-    private static final int MAP_EXPECTED_SIZE = EMOJIS.length;
-    private static final float MAP_LOAD_FACTOR = 1.0f;
+  private static final Map<String, Integer> EMOJI_TO_INDEX;
+  private static final int MAP_EXPECTED_SIZE = EMOJIS.length;
+  private static final float MAP_LOAD_FACTOR = 1.0f;
 
-    static {
-        if (EMOJIS.length != 256) {
-            throw new IllegalStateException("EMOJIS.length must be 256, but is " + EMOJIS.length);
-        }
-
-        Map<String, Integer> mutableMap = new HashMap<>(MAP_EXPECTED_SIZE, MAP_LOAD_FACTOR);
-        for (int i = 0; i < EMOJIS.length; i++) {
-            mutableMap.put(EMOJIS[i], i);
-        }
-        EMOJI_TO_INDEX = Collections.unmodifiableMap(mutableMap);
+  static {
+    if (EMOJIS.length != 256) {
+      throw new IllegalStateException("EMOJIS.length must be 256, but is " + EMOJIS.length);
     }
 
-    public static String encode(byte[] in) {
-        StringBuilder sb = new StringBuilder(in.length);
-        for (byte b : in) {
-            sb.append(EMOJIS[b & 0xFF]);
-        }
-        return sb.toString();
+    Map<String, Integer> mutableMap = new HashMap<>(MAP_EXPECTED_SIZE, MAP_LOAD_FACTOR);
+    for (int i = 0; i < EMOJIS.length; i++) {
+      mutableMap.put(EMOJIS[i], i);
+    }
+    EMOJI_TO_INDEX = Collections.unmodifiableMap(mutableMap);
+  }
+
+  public static String encode(byte[] in) {
+    StringBuilder sb = new StringBuilder(in.length);
+    for (byte b : in) {
+      sb.append(EMOJIS[b & 0xFF]);
+    }
+    return sb.toString();
+  }
+
+  public static byte[] decode(String in) {
+    int length = in.codePointCount(0, in.length());
+    byte[] bytes = new byte[length];
+
+    for (int i = 0; i < in.codePointCount(0, in.length()); i++) {
+      int cp = in.codePointAt(in.offsetByCodePoints(0, i));
+      String emoji = new String(Character.toChars(cp));
+      Integer index = EMOJI_TO_INDEX.get(emoji);
+      if (index == null) {
+        throw new IllegalArgumentException("Unknown Base256Emoji character: " + emoji);
+      }
+      bytes[i] = (byte) (index & 0xFF);
     }
 
-    public static byte[] decode(String in) {
-        int length = in.codePointCount(0, in.length());
-        byte[] bytes = new byte[length];
-
-        for (int i = 0; i < in.codePointCount(0, in.length()); i++) {
-            int cp = in.codePointAt(in.offsetByCodePoints(0, i));
-            String emoji = new String(Character.toChars(cp));
-            Integer index = EMOJI_TO_INDEX.get(emoji);
-            if (index == null) {
-                throw new IllegalArgumentException("Unknown Base256Emoji character: " + emoji);
-            }
-            bytes[i] = (byte) (index & 0xFF);
-        }
-
-        return bytes;
-    }
-
+    return bytes;
+  }
 }
