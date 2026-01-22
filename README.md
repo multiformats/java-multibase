@@ -53,7 +53,7 @@ for Maven, you can add the follwing sections to your POM.XML:
 
 ## Releasing
 
-The version number is specified in the `pom.xml` file and must be changed in order to be accurately reflected in the JAR file manifest. A git tag must be added in the format "vx.x.x" for JitPack to work.
+The version number is specified in the `pom.xml` file and must be changed in order to be accurately reflected in the JAR file manifest. A git tag must be added in the format "x.x.x" for JitPack to work.
 
 ## Maintainers
 
