@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package io.ipfs.multibase;
+package io.multibase;
 
 /**
  * Provides the highest level of abstraction for Decoders.
