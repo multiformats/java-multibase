@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package io.ipfs.multibase;
+package io.multibase;
 
 /**
  * Thrown when there is a failure condition during the encoding process. This exception is thrown

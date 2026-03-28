@@ -1,4 +1,4 @@
-package io.ipfs.multibase;
+package io.multibase;
 
 import static org.junit.jupiter.api.Assertions.assertArrayEquals;
 import static org.junit.jupiter.api.Assertions.assertEquals;
