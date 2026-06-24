@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package io.ipfs.multibase.binary;
+package io.multibase.binary;
 
 import java.math.BigInteger;
 

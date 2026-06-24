@@ -15,22 +15,27 @@
  * limitations under the License.
  */
 
-package io.ipfs.multibase;
+package io.multibase;
 
 /**
- * Defines common encoding methods for byte array encoders.
+ * Provides the highest level of abstraction for Encoders.
+ *
+ * <p>This is the sister interface of {@link Decoder}. Every implementation of Encoder provides this
+ * common generic interface which allows a user to pass a generic Object to any Encoder
+ * implementation in the codec package.
  *
  * @version $Id$
  */
-public interface BinaryEncoder extends Encoder {
+public interface Encoder {
 
   /**
-   * Encodes a byte array and return the encoded data as a byte array.
+   * Encodes an "Object" and returns the encoded content as an Object. The Objects here may just be
+   * <code>byte[]</code> or <code>String</code>s depending on the implementation used.
    *
-   * @param source Data to be encoded
-   * @return A byte array containing the encoded data
-   * @throws EncoderException thrown if the Encoder encounters a failure condition during the
-   *     encoding process.
+   * @param source An object to encode
+   * @return An "encoded" Object
+   * @throws EncoderException An encoder exception is thrown if the encoder experiences a failure
+   *     condition during the encoding process.
    */
-  byte[] encode(byte[] source) throws EncoderException;
+  Object encode(Object source) throws EncoderException;
 }

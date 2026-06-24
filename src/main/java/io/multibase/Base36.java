@@ -1,4 +1,4 @@
-package io.ipfs.multibase;
+package io.multibase;
 
 import java.math.BigInteger;
 
