@@ -1,4 +1,4 @@
-package io.ipfs.multibase;
+package io.multibase;
 
 /*
  * Copyright 2011 Google Inc.

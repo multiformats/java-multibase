@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package io.ipfs.multibase;
+package io.multibase;
 
 /**
  * Character encoding names required of every implementation of the Java platform.

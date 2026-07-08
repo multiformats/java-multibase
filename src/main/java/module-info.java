@@ -1,4 +1,4 @@
 module io.ipfs.multibase {
-  exports io.ipfs.multibase;
-  exports io.ipfs.multibase.binary;
+  exports io.multibase;
+  exports io.multibase.binary;
 }

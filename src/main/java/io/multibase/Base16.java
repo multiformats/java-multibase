@@ -1,4 +1,4 @@
-package io.ipfs.multibase;
+package io.multibase;
 
 public class Base16 {
   public static byte[] decode(String hex) {
