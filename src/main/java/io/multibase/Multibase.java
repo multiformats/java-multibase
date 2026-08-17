@@ -1,7 +1,7 @@
-package io.ipfs.multibase;
+package io.multibase;
 
-import io.ipfs.multibase.binary.Base32;
-import io.ipfs.multibase.binary.Base64;
+import io.multibase.binary.Base32;
+import io.multibase.binary.Base64;
 import java.util.Map;
 import java.util.Optional;
 import java.util.TreeMap;

@@ -15,10 +15,10 @@
  * limitations under the License.
  */
 
-package io.ipfs.multibase.binary;
+package io.multibase.binary;
 
-import io.ipfs.multibase.CharEncoding;
-import io.ipfs.multibase.Charsets;
+import io.multibase.CharEncoding;
+import io.multibase.Charsets;
 import java.nio.charset.Charset;
 
 /**

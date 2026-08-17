@@ -15,7 +15,7 @@
  * limitations under the License.
  */
 
-package io.ipfs.multibase;
+package io.multibase;
 
 /**
  * Defines common decoding methods for byte array decoders.
